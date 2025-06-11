@@ -10,3 +10,4 @@ beautifulsoup4
 protobuf<5.0.0
 pinecone
 openai
+pysqlite3-binary
