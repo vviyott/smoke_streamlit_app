@@ -5,6 +5,14 @@ from components.tab_map import smoking_zone_map
 from components.tab_ai_news import news_chatbot
 from components.tab_shopping_compare import shopping_compare
 
+# ChromaDB 의존성 처리
+try:
+    from components.tab_ai_news import news_chatbot
+    AI_NEWS_AVAILABLE = True
+except ImportError as e:
+    AI_NEWS_AVAILABLE = False
+    print(f"AI News feature unavailable: {e}")
+
 # 페이지 설정
 st.set_page_config(page_title="Tobacco Data Hub", page_icon="🚬", layout = "wide")
 
@@ -83,25 +91,40 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 탭 생성 (이모지 추가로 더 직관적으로)
-tabs = st.tabs([
-    "📊 Smoking Data Statistics", 
-    "🗺️ Seoul Smoking Zone",
-    "📰 News Feed Chat",
-    "🛍️ Shopping Price Compare"
-])
+# 탭 생성 (ChromaDB 가용성에 따라 조건부)
+if AI_NEWS_AVAILABLE:
+    tabs = st.tabs([
+        "📊 Smoking Data Statistics", 
+        "🗺️ Seoul Smoking Zone",
+        "📰 News Feed Chat",
+        "🛍️ Shopping Price Compare"
+    ])
+else:
+    tabs = st.tabs([
+        "📊 Smoking Data Statistics", 
+        "🗺️ Seoul Smoking Zone",
+        "🛍️ Shopping Price Compare"
+    ])
 
+# 탭 내용
 with tabs[0]:
     seoul_smoking_rate_2022()
 
 with tabs[1]:
     smoking_zone_map()
 
-with tabs[2]:
-    news_chatbot()
-
-with tabs[3]:
-    shopping_compare()
+if AI_NEWS_AVAILABLE:
+    with tabs[2]:
+        news_chatbot()
+    
+    with tabs[3]:
+        shopping_compare()
+else:
+    with tabs[2]:
+        shopping_compare()
+    
+    # AI 뉴스 준비 중 메시지 (별도 공간에 표시)
+    st.info("📰 News Feed Chat 기능은 현재 업그레이드 중입니다. 곧 만나보실 수 있습니다!")
 
 # 푸터
 st.markdown("""
