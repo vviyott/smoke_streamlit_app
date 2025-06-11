@@ -1,117 +1,60 @@
-# components/tab_ai_news_pinecone.py
+# components/tab_ai_news.py
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import streamlit as st
-from pinecone import Pinecone
+import chromadb
 from openai import OpenAI
-import json
-
-# 환경 변수에서 API 키 가져오기
-PINECONE_API_KEY = st.secrets.get("PINECONE_API_KEY", "")
-OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
 
 ## --- 유틸 함수 ---
 @st.cache_resource
-def init_pinecone_client():
-    """Pinecone 클라이언트 초기화"""
+def init_chroma_client():
+    """ChromaDB 클라이언트 초기화"""
+    return chromadb.PersistentClient(path="data/chroma_db")
+
+@st.cache_data(ttl=300)
+def get_available_collections():
+    """사용 가능한 컬렉션 목록 가져오기"""
     try:
-        if not PINECONE_API_KEY:
-            st.error("Pinecone API 키가 설정되지 않았습니다.")
-            return None
-        
-        pc = Pinecone(api_key=PINECONE_API_KEY)
-        return pc
+        client = init_chroma_client()
+        return [col.name for col in client.list_collections()]
     except Exception as e:
-        st.error(f"Pinecone 클라이언트 초기화 오류: {e}")
+        st.error(f"컬렉션 목록 로드 오류: {e}")
+        return []
+
+def get_collection(collection_name):
+    """벡터 데이터베이스에서 컬렉션 가져오기"""
+    if not collection_name:
+        return None
+    try:
+        client = init_chroma_client()
+        collection = client.get_collection(name=collection_name)
+        return collection
+    except Exception as e:
+        st.error(f"컬렉션 가져오기 오류: {e}")
         return None
 
-@st.cache_resource
-def get_pinecone_index():
-    """Pinecone 인덱스 가져오기"""
+def search_vector_db(collection, query, n_results=20):
+    """벡터 데이터베이스 검색 함수"""
     try:
-        pc = init_pinecone_client()
-        if not pc:
-            return None
-        
-        index_name = "tobacco-news"
-        
-        # 인덱스 존재 확인
-        existing_indexes = pc.list_indexes()
-        index_names = [idx.name for idx in existing_indexes]
-        
-        if index_name not in index_names:
-            st.error(f"인덱스 '{index_name}'를 찾을 수 없습니다.")
-            return None
-        
-        index = pc.Index(index_name)
-        return index
-    except Exception as e:
-        st.error(f"Pinecone 인덱스 연결 오류: {e}")
-        return None
-
-@st.cache_resource
-def init_openai_client():
-    """OpenAI 클라이언트 초기화"""
-    try:
-        if not OPENAI_API_KEY:
-            return None
-        
-        api_key = OPENAI_API_KEY.replace('\ufeff', '')
-        client = OpenAI(api_key=api_key)
-        return client
-    except Exception as e:
-        st.error(f"OpenAI 클라이언트 초기화 오류: {e}")
-        return None
-
-def get_embedding(text, client):
-    """OpenAI를 사용하여 텍스트 임베딩 생성"""
-    try:
-        if not client:
-            return None
-        
-        response = client.embeddings.create(
-            input=text,
-            model="text-embedding-ada-002"
+        if not collection:
+            return [{"content": "컬렉션을 불러올 수 없습니다. 컬렉션을 선택해주세요.", "title": "오류", "metadata": {}}]
+       
+        results = collection.query(
+            query_texts=[query],
+            n_results=n_results
         )
-        return response.data[0].embedding
-    except Exception as e:
-        st.error(f"임베딩 생성 오류: {e}")
-        return None
-
-def search_vector_db(index, query, n_results=20):
-    """Pinecone 벡터 데이터베이스 검색 함수"""
-    try:
-        if not index:
-            return [{"content": "Pinecone 인덱스를 불러올 수 없습니다.", "title": "오류", "metadata": {}}]
-        
-        # OpenAI 클라이언트로 쿼리 임베딩 생성
-        openai_client = init_openai_client()
-        if not openai_client:
-            return [{"content": "OpenAI API 키가 설정되지 않았습니다.", "title": "오류", "metadata": {}}]
-        
-        query_embedding = get_embedding(query, openai_client)
-        if not query_embedding:
-            return [{"content": "쿼리 임베딩 생성에 실패했습니다.", "title": "오류", "metadata": {}}]
-        
-        # Pinecone에서 검색
-        results = index.query(
-            vector=query_embedding,
-            top_k=n_results,
-            include_metadata=True
-        )
-        
+       
         documents = []
-        for match in results['matches']:
-            metadata = match.get('metadata', {})
+        for i in range(len(results['documents'][0])):
             document = {
-                "content": metadata.get('content', '내용 없음'),
-                "title": metadata.get('title', '제목 없음'),
-                "metadata": metadata
+                "content": results['documents'][0][i],
+                "title": results['metadatas'][0][i].get('title', '제목 없음'),
+                "metadata": results['metadatas'][0][i]
             }
             documents.append(document)
-        
+       
         return documents
     except Exception as e:
         st.error(f"검색 오류: {e}")
@@ -151,7 +94,7 @@ def get_gpt_response(query, search_results, api_key, model="gpt-4o-mini"):
                 content = content[:80000] + "..."
             context += f"내용: {content}\n\n"
 
-        # 개선된 GPT 프롬프트 (기존과 동일)
+        # 개선된 GPT 프롬프트
         system_prompt = """당신은 담배 및 흡연과 관련된 정책, 건강, 사회적 이슈 전반에 대한 전문 분석가입니다.
         제공된 기사나 문서들을 바탕으로 사용자 질문에 적절한 수준의 답변을 제공해주세요.
 
@@ -262,25 +205,16 @@ def get_simple_response(query, search_results):
     result_text += "더 자세한 분석을 위해서는 OpenAI API 키를 입력해주세요."
     return result_text
 
-def chat_response(question, index):
+def chat_response(question, collection):
     """챗봇 응답 생성 함수"""
     # 벡터 데이터베이스 검색
-    search_results = search_vector_db(index, question)
+    search_results = search_vector_db(collection, question)
    
     # ChatGPT API 키가 있으면 GPT 사용, 없으면 간단한 응답
     if OPENAI_API_KEY:
         return get_gpt_response(question, search_results, OPENAI_API_KEY)
     else:
         return get_simple_response(question, search_results)
-
-def get_index_stats(index):
-    """인덱스 통계 정보 가져오기"""
-    try:
-        stats = index.describe_index_stats()
-        return stats.get('total_vector_count', 0)
-    except Exception as e:
-        st.error(f"인덱스 정보 확인 오류: {e}")
-        return 0
 
 def news_chatbot():
     """담배 관련 뉴스 챗봇 메인 함수"""
@@ -290,23 +224,29 @@ def news_chatbot():
     AI가 중앙일보 기사 기반 데이터에서 유의미한 정보를 분석해 친절하게 답변해드립니다.
     """)
 
-    # Pinecone 인덱스 가져오기
-    index = get_pinecone_index()
-    
-    if not index:
-        st.error("⚠️ Pinecone 연결에 실패했습니다. API 키와 인덱스 설정을 확인해주세요.")
+
+    # 컬렉션 목록 가져오기
+    collection_list = get_available_collections()
+    if not collection_list:
+        st.warning("사용 가능한 컬렉션이 없습니다.")
         return
 
-    # 인덱스 정보 표시
-    try:
-        vector_count = get_index_stats(index)
-        if vector_count > 0:
-            st.success(f"Pinecone 인덱스 'tobacco-news'에서 {vector_count:,}개의 문서를 불러왔습니다.")
-        else:
-            st.warning("인덱스가 비어있습니다. 데이터를 먼저 업로드해주세요.")
-            return
-    except Exception as e:
-        st.warning(f"인덱스 정보 확인 중 오류: {e}")
+    # 첫 번째 컬렉션 자동 선택 (다른 탭들과 일관성 유지)
+    collection_name = collection_list[0]
+    
+    # 컬렉션 가져오기
+    collection = get_collection(collection_name)
+
+    # 컬렉션 정보 표시
+    if collection:
+        try:
+            count = collection.count()
+            st.success(f"컬렉션 '{collection_name}'에서 {count:,}개의 문서를 불러왔습니다.")
+        except Exception as e:
+            st.warning(f"컬렉션 정보 확인 중 오류: {e}")
+    else:
+        st.warning("컬렉션을 선택하거나 찾을 수 없습니다. 컬렉션 목록을 확인하세요.")
+        return
 
     # 세션 상태 초기화
     if "chat_history" not in st.session_state:
@@ -365,13 +305,13 @@ def news_chatbot():
     final_input = selected_input if selected_input else chat_input
 
     if final_input:
-        # 인덱스가 없으면 오류 메시지 표시
-        if not index:
+        # 컬렉션이 없으면 오류 메시지 표시
+        if not collection:
             with st.chat_message("assistant"):
-                st.markdown("⚠️ Pinecone 인덱스에 연결할 수 없습니다. 설정을 확인해주세요.")
+                st.markdown("⚠️ 컬렉션을 선택해주세요. 현재 컬렉션이 선택되지 않았거나 찾을 수 없습니다.")
             st.session_state.chat_history.append({
                 "role": "assistant", 
-                "content": "⚠️ Pinecone 인덱스에 연결할 수 없습니다. 설정을 확인해주세요."
+                "content": "⚠️ 컬렉션을 선택해주세요. 현재 컬렉션이 선택되지 않았거나 찾을 수 없습니다."
             })
             st.session_state.is_processing = False
         else:
@@ -384,7 +324,7 @@ def news_chatbot():
 
             # 응답 생성  
             with st.spinner("질문과 관련된 문서를 수집하여 답변을 준비하고 있는 중..."):
-                response = chat_response(final_input, index)
+                response = chat_response(final_input, collection)
 
             # 응답 메시지 표시
             with st.chat_message("assistant"):
