@@ -3,11 +3,8 @@ pandas
 numpy
 pydeck
 plotly
-chromadb
 folium
 streamlit-folium
 requests
 beautifulsoup4
 protobuf<5.0.0
-# chromadb  # 임시 비활성화
-# openai    # ChromaDB와 함께 사용하던 것이면 임시 비활성화
