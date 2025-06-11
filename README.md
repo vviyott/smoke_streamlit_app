@@ -16,7 +16,7 @@ Streamlit 기반의 웹 앱으로 구성되어 있으며, 사용자는 다양한
 - [코드 보기 (GitHub)](https://github.com/vviyot/smoke_streamlit_app)
 
 ## 📁 프로젝트 구조
-```` ``` ``
+````
 smoke_streamlit_app/
 ├── main.py			← Streamlit 실행 파일
 ├── components/
@@ -32,4 +32,4 @@ smoke_streamlit_app/
 │   ├── chroma_db/컬렉션 'ciga_articles'	   ← 벡터DB 저장 디렉토리 (중앙일보 기사 기반)
 │   └── naver_shopping_액상형 전자담배_20250606_183943.csv
 └── requirements.txt      ← 패키지 목록 (예정)
-```` ``` ``
+````
