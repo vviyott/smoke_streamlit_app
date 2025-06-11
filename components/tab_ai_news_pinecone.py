@@ -1,6 +1,6 @@
 # components/tab_ai_news_pinecone.py
 import streamlit as st
-from pinecone import Pinecone, ServerlessSpec
+from pinecone import Pinecone
 from openai import OpenAI
 import json
 
