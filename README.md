@@ -13,7 +13,7 @@ Streamlit 기반의 웹 앱으로 구성되어 있으며, 사용자는 다양한
 ## 🔗 체험하기
 
 - [실시간 앱 실행 (Streamlit)](https://smokeapp-vviyott.streamlit.app/#ai?embed=true)
-- [코드 보기 (GitHub)](https://github.com/vviyot/smoke_streamlit_app)
+
 
 ## 📁 프로젝트 구조
 ````
