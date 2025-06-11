@@ -4,6 +4,7 @@ numpy
 pydeck
 plotly
 folium
+chromadb
 streamlit-folium
 requests
 beautifulsoup4
