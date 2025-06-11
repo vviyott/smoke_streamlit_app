@@ -6,6 +6,19 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import streamlit as st
 import chromadb
 from openai import OpenAI
+import os
+
+# API 키 설정
+def get_api_key(key_name):
+    """Streamlit secrets 또는 환경변수에서 API 키 가져오기"""
+    try:
+        return st.secrets[key_name]
+    except:
+        return os.getenv(key_name)
+
+# API 키 초기화
+OPENAI_API_KEY = get_api_key('OPENAI_API_KEY')
+PINECONE_API_KEY = get_api_key('PINECONE_API_KEY')
 
 ## --- 유틸 함수 ---
 @st.cache_resource
