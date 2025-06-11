@@ -4,9 +4,9 @@ from components.tab_dash import seoul_smoking_rate_2022
 from components.tab_map import smoking_zone_map
 from components.tab_shopping_compare import shopping_compare
 
-# ChromaDB 의존성 처리 (try-except 안에서만 import)
+# Pinecone 의존성 처리 (try-except 안에서만 import)
 try:
-    from components.tab_ai_news import news_chatbot
+    from components.tab_ai_news_pinecone import news_chatbot
     AI_NEWS_AVAILABLE = True
 except ImportError as e:
     AI_NEWS_AVAILABLE = False
