@@ -2,10 +2,9 @@
 import streamlit as st
 from components.tab_dash import seoul_smoking_rate_2022
 from components.tab_map import smoking_zone_map
-from components.tab_ai_news import news_chatbot
 from components.tab_shopping_compare import shopping_compare
 
-# ChromaDB 의존성 처리
+# ChromaDB 의존성 처리 (try-except 안에서만 import)
 try:
     from components.tab_ai_news import news_chatbot
     AI_NEWS_AVAILABLE = True
@@ -14,7 +13,7 @@ except ImportError as e:
     print(f"AI News feature unavailable: {e}")
 
 # 페이지 설정
-st.set_page_config(page_title="Tobacco Data Hub", page_icon="🚬", layout = "wide")
+st.set_page_config(page_title="Tobacco Data Hub", page_icon="🚬", layout="wide")
 
 # 전체 앱 스타일링
 st.markdown("""
@@ -28,44 +27,37 @@ st.markdown("""
     border-radius: 10px;
     border: 1px solid #dee2e6;
 }
-
 .main-title {
     font-size: 2.5rem;
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 10px;
 }
-
 .main-subtitle {
     font-size: 1.1rem;
     color: #6c757d;
     font-weight: 400;
 }
-
 /* 선택된 탭 스타일 */
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] {
     border-bottom: 3px solid #555555 !important;
     color: #555555 !important;
     font-weight: bold;
 }
-
 /* 탭 호버 효과 */
 .stTabs [data-baseweb="tab-list"] button:hover {
     color: #333333 !important;
     background-color: #f8f9fa !important;
 }
-
 /* 움직이는 강조 바 색상 탭 색상과 통일 */
 [data-baseweb="tab-highlight"] {
     background-color: #555555 !important;
 }
-
 /* 전체 앱 패딩(상하여백) 조정 */
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
-
 /* 푸터 스타일 */
 .footer {
     position: fixed;
