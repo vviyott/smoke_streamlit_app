@@ -8,5 +8,5 @@ streamlit-folium
 requests
 beautifulsoup4
 protobuf<5.0.0
-pinecone-client
+pinecone
 openai
