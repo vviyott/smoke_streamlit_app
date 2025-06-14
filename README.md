@@ -15,7 +15,7 @@ Streamlit 기반의 웹 앱으로 구성되어 있으며, 사용자는 다양한
 - [실시간 앱 실행 (Streamlit)](https://smokeapp-vviyott.streamlit.app/#ai?embed=true)
 
 
-## 📁 프로젝트 구조
+## 📁 프로젝트 구조 (모듈화)
 ````
 smoke_streamlit_app/
 ├── main.py			← Streamlit 실행 파일
