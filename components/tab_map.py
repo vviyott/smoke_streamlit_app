@@ -3,9 +3,9 @@ import os
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
-pdk.settings.mapbox_api_key = mapbox_token
 
 mapbox_token = st.secrets["MAPBOX_API_KEY"]  # 또는 os.environ.get("MAPBOX_API_KEY")
+pdk.settings.mapbox_api_key = mapbox_token
 
 def smoking_zone_map():
     # 제목 + 설명
