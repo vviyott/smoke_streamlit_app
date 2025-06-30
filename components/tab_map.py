@@ -59,6 +59,7 @@ def smoking_zone_map():
     if not data.empty:
         st.pydeck_chart(pdk.Deck(
             map_style='mapbox://styles/mapbox/streets-v11',
+            mapbox_key=mapbox_token,
             initial_view_state=pdk.ViewState(
                 latitude=center_lat,
                 longitude=center_lon,
