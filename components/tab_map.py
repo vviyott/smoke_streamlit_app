@@ -1,8 +1,9 @@
 # components/tab_map.py
+import os
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
-import os
+pdk.settings.mapbox_api_key = mapbox_token
 
 mapbox_token = st.secrets["MAPBOX_API_KEY"]  # 또는 os.environ.get("MAPBOX_API_KEY")
 
@@ -59,7 +60,6 @@ def smoking_zone_map():
     if not data.empty:
         st.pydeck_chart(pdk.Deck(
             map_style='mapbox://styles/mapbox/streets-v11',
-            mapbox_key=mapbox_token,
             initial_view_state=pdk.ViewState(
                 latitude=center_lat,
                 longitude=center_lon,
