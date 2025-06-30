@@ -18,9 +18,9 @@ Streamlit 기반의 웹 앱으로 구성되어 있으며, 사용자는 다양한
 smoke_streamlit_app/
 ├── main.py                       ← Streamlit 실행 파일
 ├── components/
-│   ├── __init__.py		            ← (비워두거나 공통 유틸 함수 작성 가능)
-│   ├── tab_dash.py		            ← 2022년 서울시민 흡연율 시각화 (Tableau)
-│   ├── tab_map.py		            ← 흡연구역 위치 지도 시각화
+│   ├── __init__.py               ← (비워두거나 공통 유틸 함수 작성 가능)
+│   ├── tab_dash.py               ← 2022년 서울시민 흡연율 시각화 (Tableau)
+│   ├── tab_map.py                ← 흡연구역 위치 지도 시각화
 │   ├── tab_ai_news.py            ← 담배 뉴스 기반 AI 챗봇
 │   └── tab_shopping_compare.py   ← 네이버 쇼핑 가격비교
 ├── utils/
