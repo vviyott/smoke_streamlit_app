@@ -10,18 +10,18 @@ def seoul_smoking_rate_2022():
     자치구별 흡연율 순위와 흡연 현황 지도, 성별 흡연율 통계를 함께 확인해보세요.
     """)
     
-    # Streamlit의 columns를 사용해서 중앙 정렬
-    col1, col2, col3 = st.columns([1, 8, 1])
+    # 정적 이미지 표시
+    st.image(
+        "https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1.png",
+        caption="서울시 2022년 흡연율 데이터 시각화",
+        use_column_width=True
+    )
     
-    with col2:
-        # 간단한 iframe 방식
-        tableau_url = "https://public.tableau.com/views/SmokingrateinSeoul2022/1"
-        
-        st.components.v1.iframe(
-            src=f"{tableau_url}?:language=ko-KR&:display_count=n&:origin=viz_share_link&:embed=y&:showVizHome=no",
-            width=None,  # 자동 조정
-            height=1200,
-            scrolling=False
-        )
+    # 인터랙티브 버전 링크
+    st.markdown("""
+    **📊 [인터랙티브 버전 보기](https://public.tableau.com/views/SmokingrateinSeoul2022/1?:language=ko-KR&:display_count=n&:origin=viz_share_link)**
+    
+    *위 링크를 클릭하면 Tableau Public에서 전체 대시보드를 인터랙티브하게 이용할 수 있습니다.*
+    """)
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
