@@ -8,54 +8,52 @@ def seoul_smoking_rate_2022():
     자치구별 흡연율 순위와 흡연 현황 지도, 성별 흡연율 통계를 함께 확인해보세요.
     """)
     
-    # Tableau 공식 내장 코드 사용 + 반응형 개선
+    st.info("💡 대시보드가 화면에 다 보이지 않으면 아래에서 좌우로 스크롤하세요.")
+    
     components.html(
         """
-        <div class='tableauPlaceholder' id='viz1754442554050' style='position: relative; width: 100%;'>
-            <noscript>
-                <a href='#'>
-                    <img alt='대시보드 1' src='https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1_rss.png' style='border: none' />
-                </a>
-            </noscript>
-            <object class='tableauViz' style='display:none;'>
-                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                <param name='embed_code_version' value='3' />
-                <param name='site_root' value='' />
-                <param name='name' value='SmokingrateinSeoul2022/1' />
-                <param name='tabs' value='no' />
-                <param name='toolbar' value='yes' />
-                <param name='static_image' value='https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1.png' />
-                <param name='animate_transition' value='yes' />
-                <param name='display_static_image' value='yes' />
-                <param name='display_spinner' value='yes' />
-                <param name='display_overlay' value='yes' />
-                <param name='display_count' value='yes' />
-                <param name='language' value='ko-KR' />
-            </object>
+        <div style="width: 100%; overflow-x: auto; overflow-y: hidden; border: 1px solid #e1e5e9; border-radius: 8px; background: white;">
+            <div class='tableauPlaceholder' id='viz1754442554050' style='position: relative; min-width: 1200px;'>
+                <noscript>
+                    <a href='#'>
+                        <img alt='대시보드 1' 
+                             src='https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1_rss.png' 
+                             style='border: none' />
+                    </a>
+                </noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='SmokingrateinSeoul2022/1' />
+                    <param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image' value='https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='language' value='ko-KR' />
+                </object>
+            </div>
         </div>
         
         <script type='text/javascript'>
             var divElement = document.getElementById('viz1754442554050');
             var vizElement = divElement.getElementsByTagName('object')[0];
             
-            if (divElement.offsetWidth > 800) {
-                vizElement.style.width='100%';
-                vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
-            } else if (divElement.offsetWidth > 500) {
-                vizElement.style.width='100%';
-                vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
-            } else {
-                vizElement.style.width='100%';
-                vizElement.style.height='727px';
-            }
+            // 고정 크기로 가로 레이아웃 보장
+            vizElement.style.width = '1200px';
+            vizElement.style.height = '800px';
             
             var scriptElement = document.createElement('script');
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
         </script>
         """,
-        height=1200 # 세로 크기를 넉넉하게 확보
+        height=850,
+        scrolling=False
     )
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
-
