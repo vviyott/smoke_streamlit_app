@@ -37,16 +37,13 @@ def seoul_smoking_rate_2022():
         <script>
           const div = document.getElementById('vizSmoking');
           const viz = div.getElementsByTagName('object')[0];
-          viz.style.width = '100%';
-          viz.style.height = (div.offsetWidth * 1.6) + 'px';
-          window.addEventListener('resize', () => {
-          viz.style.height = (div.offsetWidth * 1.4) + 'px';
-          });
+          viz.style.width = '1000px';  // 💡 width를 고정!
+          viz.style.height = '700px';  // 💡 height도 고정!
         </script>
-
         """,
         height=900,  # 첫 로딩 때 공간 확보용 (JS가 재조정하긴 함)
         scrolling=False
     )
 
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
