@@ -10,34 +10,20 @@ def seoul_smoking_rate_2022():
     자치구별 흡연율 순위와 흡연 현황 지도, 성별 흡연율 통계를 함께 확인해보세요.
     """)
     
-    # CSS로 최적화된 display
+    # 고정 너비로 강제 설정하여 데스크톱 레이아웃 유지
     components.html(
         """
-        <style>
-        .tableau-container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .tableau-iframe {
-            width: 100%;
-            height: 1600px;
-            border: none;
-            display: block;
-        }
-        </style>
-        
-        <div class="tableau-container">
-            <iframe class="tableau-iframe"
-                    src="https://public.tableau.com/views/SmokingrateinSeoul2022/1?:language=ko-KR&:display_count=n&:origin=viz_share_link&:embed=y&:showVizHome=no&:toolbar=top&:animate_transition=yes&:display_static_image=no&:display_spinner=yes&:display_overlay=yes&:display_count=yes&:tabs=no" 
+        <div style="width: 100%; overflow-x: auto; overflow-y: hidden;">
+            <iframe src="https://public.tableau.com/views/SmokingrateinSeoul2022/1?:language=ko-KR&:display_count=n&:origin=viz_share_link&:embed=y&:showVizHome=no&:toolbar=top&:device=desktop" 
+                    width="1400" 
+                    height="900" 
+                    frameborder="0"
                     allowtransparency="true"
-                    allowfullscreen="true">
+                    allowfullscreen="true"
+                    style="border: none; min-width: 1400px;">
             </iframe>
         </div>
         """,
-        height=1650
+        height=920
     )
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
