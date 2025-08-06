@@ -45,7 +45,7 @@ def seoul_smoking_rate_2022():
             
             // 고정 크기로 가로 레이아웃 보장
             vizElement.style.width = '1200px';
-            vizElement.style.height = '800px';
+            vizElement.style.height = '900px';
             
             var scriptElement = document.createElement('script');
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
@@ -57,6 +57,7 @@ def seoul_smoking_rate_2022():
     )
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
 
 
 
