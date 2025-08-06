@@ -18,7 +18,7 @@ def seoul_smoking_rate_2022():
         <div style="width: 100%; display: flex; justify-content: center; align-items: center; background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
             <iframe src="{tableau_url}" 
                     width="1400" 
-                    height="800" 
+                    height="1200" 
                     frameborder="0"
                     allowtransparency="true"
                     allowfullscreen="true"
@@ -29,3 +29,4 @@ def seoul_smoking_rate_2022():
         height=850
     )
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
