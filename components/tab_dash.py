@@ -8,7 +8,7 @@ def seoul_smoking_rate_2022():
     자치구별 흡연율 순위와 흡연 현황 지도, 성별 흡연율 통계를 함께 확인해보세요.
     """)
     
-    st.info("💡 대시보드가 화면에 다 보이지 않으면 아래에서 좌우로 스크롤하세요.")
+    # st.info("💡 대시보드가 화면에 다 보이지 않으면 아래에서 좌우로 스크롤하세요.")
     
     components.html(
         """
@@ -57,3 +57,4 @@ def seoul_smoking_rate_2022():
     )
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
