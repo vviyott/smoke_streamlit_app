@@ -1,3 +1,5 @@
+# components/tab_dash.py
+
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -58,6 +60,7 @@ def seoul_smoking_rate_2022():
     )
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
 
 
 
