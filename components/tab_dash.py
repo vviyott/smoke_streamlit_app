@@ -37,22 +37,14 @@ def seoul_smoking_rate_2022():
         <script type='text/javascript'>
           var divElement = document.getElementById('viz1754439309658');
           var vizElement = divElement.getElementsByTagName('object')[0];
-          if ( divElement.offsetWidth > 800 ) {
-              vizElement.style.width='1200px';
-              vizElement.style.height='877px';
-          } else if ( divElement.offsetWidth > 500 ) {
-              vizElement.style.width='1200px';
-              vizElement.style.height='877px';
-          } else {
-              vizElement.style.width='100%';
-              vizElement.style.height='927px';
-          }
+          vizElement.style.width = '1200px';
+          vizElement.style.height = '877px';
           var scriptElement = document.createElement('script');
           scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
           vizElement.parentNode.insertBefore(scriptElement, vizElement);
         </script>
         """,
-        height=950  # 전체 높이 충분히 확보
+        height=950
     )
 
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
