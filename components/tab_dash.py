@@ -52,11 +52,12 @@ def seoul_smoking_rate_2022():
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
         </script>
         """,
-        height=850,
+        height=900,
         scrolling=False
     )
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
 
 
 
