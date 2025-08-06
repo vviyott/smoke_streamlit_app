@@ -10,7 +10,8 @@ def seoul_smoking_rate_2022():
 
     components.html(
         """
-        <div class='tableauPlaceholder' id='viz1754439309658' style='position: relative'>
+        <div class='tableauPlaceholder' id='viz1754439309658' 
+             style='position: relative; width: 100%; max-width: 1200px; margin: auto;'>
           <noscript>
             <a href='#'>
               <img alt='대시보드 1 '
@@ -18,7 +19,7 @@ def seoul_smoking_rate_2022():
                    style='border: none' />
             </a>
           </noscript>
-          <object class='tableauViz' style='display:none;'>
+          <object class='tableauViz' style='display:none; width: 100%; height: 877px;'>
             <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
             <param name='embed_code_version' value='3' />
             <param name='site_root' value='' />
@@ -37,8 +38,6 @@ def seoul_smoking_rate_2022():
         <script type='text/javascript'>
           var divElement = document.getElementById('viz1754439309658');
           var vizElement = divElement.getElementsByTagName('object')[0];
-          vizElement.style.width = '100%';
-          vizElement.style.height = '877px';
           var scriptElement = document.createElement('script');
           scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
           vizElement.parentNode.insertBefore(scriptElement, vizElement);
@@ -48,4 +47,3 @@ def seoul_smoking_rate_2022():
     )
 
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
-
