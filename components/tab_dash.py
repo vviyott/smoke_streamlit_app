@@ -18,9 +18,7 @@ def seoul_smoking_rate_2022():
             <div class='tableauPlaceholder' id='viz1754442554050' style='position: relative; min-width: 1200px;'>
                 <noscript>
                     <a href='#'>
-                        <img alt='대시보드 1' 
-                             src='https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1_rss.png' 
-                             style='border: none' />
+                        <img alt='대시보드 1' src='https://public.tableau.com/static/images/Sm/SmokingrateinSeoul2022/1/1_rss.png' style='border: none' />
                     </a>
                 </noscript>
                 <object class='tableauViz' style='display:none;'>
@@ -60,6 +58,7 @@ def seoul_smoking_rate_2022():
     )
     
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
+
 
 
 
