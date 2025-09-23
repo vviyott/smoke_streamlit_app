@@ -58,7 +58,7 @@ def seoul_smoking_rate_2022():
         자치구별 흡연율 순위와 흡연 현황 지도, 성별 흡연율 통계를 함께 확인해보세요.
         """
     )
-    st.markdown("### 2022년")
+    st.markdown("<h5 style='text-align: left;'># 2022년</h5>", unsafe_allow_html=True)
     st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
     c1, c2 = st.columns(2)
 
@@ -85,6 +85,7 @@ def seoul_smoking_rate_2022():
             toolbar="yes",
         )
         st.caption("출처: Tableau Public · Smoking rate in Seoul 2023")
+
 
 
 
