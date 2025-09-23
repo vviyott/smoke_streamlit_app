@@ -63,7 +63,7 @@ def seoul_smoking_rate_2022():
             url=url_2022,
             ratio="16:9",        # 필요 시 "4:3"으로 바꾸면 세로가 조금 더 확보됨
             min_height=420,
-            max_height=1100,
+            max_height=800,
             toolbar="yes",       # "no"로 숨길 수도 있음
             scrolling=False,
         )
@@ -75,9 +75,8 @@ def seoul_smoking_rate_2022():
             url=url_2023,
             ratio="16:9",
             min_height=420,
-            max_height=1100,
+            max_height=500,
             toolbar="yes",
             scrolling=False,
         )
         st.caption("출처: Tableau Public · Smoking rate in Seoul 2023")
-
