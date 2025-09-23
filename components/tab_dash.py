@@ -65,11 +65,11 @@ def seoul_smoking_rate_2022():
         url_2022 = "https://public.tableau.com/views/SmokingrateinSeoul2022/1"
         embed_tableau_auto(
             url=url_2022,
-            ratio="4:3",          # 두 컬럼(폭이 줄어듦)에서는 4:3이 시야 확보에 유리
-            vh_portion=0.85,      # 화면 높이의 최대 85%까지 사용
+            ratio="4:3",
+            vh_portion=0.90,   # 화면 높이 더 적극 활용
             min_height=540,
-            max_height=820,       # Streamlit 예약 높이도 동일하게
-            toolbar="yes",
+            max_height=760,    # Streamlit 예약 높이도 줄여 간극 축소
+            toolbar="no",      # 툴바 숨기면 아래 여백 더 줄어듦
         )
         st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
 
@@ -84,3 +84,4 @@ def seoul_smoking_rate_2022():
             toolbar="yes",
         )
         st.caption("출처: Tableau Public · Smoking rate in Seoul 2023")
+
