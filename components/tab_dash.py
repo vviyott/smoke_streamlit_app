@@ -62,6 +62,7 @@ def seoul_smoking_rate_2022():
     c1, c2 = st.columns(2)
 
     with c1:
+        st.markdown("<h5 style='text-align: left;'># 2022년</h5>", unsafe_allow_html=True)
         url_2022 = "https://public.tableau.com/views/SmokingrateinSeoul2022/1"
         embed_tableau_auto(
             url=url_2022,
@@ -74,6 +75,7 @@ def seoul_smoking_rate_2022():
         st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
 
     with c2:
+        st.markdown("<h5 style='text-align: left;'># 2023년</h5>", unsafe_allow_html=True)
         url_2023 = "https://public.tableau.com/views/SmokingrateinSeoul2023/1"
         embed_tableau_auto(
             url=url_2023,
@@ -84,4 +86,5 @@ def seoul_smoking_rate_2022():
             toolbar="yes",
         )
         st.caption("출처: Tableau Public · Smoking rate in Seoul 2023")
+
 
