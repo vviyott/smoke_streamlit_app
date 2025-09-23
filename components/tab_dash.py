@@ -1,4 +1,4 @@
-# components/tab_dash.py
+# components/tab_dash.py (v2)
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -62,28 +62,18 @@ def seoul_smoking_rate_2022():
     c1, c2 = st.columns(2)
 
     with c1:
-        st.markdown(
-            "<div class='hdr-row'>"
-            "  <div class='hdr-left'># 2022년</div>"
-            "  <div class='hdr-right'>"
-            "    <a href='https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#' target='_blank'>출처: 서울 열린데이터 광장</a>"
-            "  </div>"
-            "</div>",
-            unsafe_allow_html=True
-        )
         url_2022 = "https://public.tableau.com/views/SmokingrateinSeoul2022/1"
         embed_tableau_auto(
             url=url_2022,
-            ratio="4:3",
-            vh_portion=0.90,   # 화면 높이 더 적극 활용
+            ratio="4:3",          # 두 컬럼(폭이 줄어듦)에서는 4:3이 시야 확보에 유리
+            vh_portion=0.85,      # 화면 높이의 최대 85%까지 사용
             min_height=540,
-            max_height=760,    # Streamlit 예약 높이도 줄여 간극 축소
-            toolbar="no",      # 툴바 숨기면 아래 여백 더 줄어듦
+            max_height=820,       # Streamlit 예약 높이도 동일하게
+            toolbar="yes",
         )
-        
+        st.caption("출처: [서울 열린데이터 광장](https://data.seoul.go.kr/dataList/10668/S/2/datasetView.do#)")
 
     with c2:
-        st.markdown("<h5 style='text-align: left;'># 2023년</h5>", unsafe_allow_html=True)
         url_2023 = "https://public.tableau.com/views/SmokingrateinSeoul2023/1"
         embed_tableau_auto(
             url=url_2023,
@@ -94,7 +84,3 @@ def seoul_smoking_rate_2022():
             toolbar="yes",
         )
         st.caption("출처: Tableau Public · Smoking rate in Seoul 2023")
-
-
-
-
