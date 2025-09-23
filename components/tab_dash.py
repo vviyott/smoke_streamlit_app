@@ -4,12 +4,10 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 def _embed_tableau_responsive(
-    url: str,
-    ratio: str = "16:9",     # "4:3", "1:1" 등 필요에 맞게
-    min_height: int = 360,   # 너무 낮아지지 않도록 안전장치
-    max_height: int = 1200,  # 데스크톱에서 과도하게 길어지지 않도록 상한
-    scrolling: bool = False,
-    toolbar: str = "yes",    # "yes" | "no" | "top" | "bottom"
+    url, ratio="4:3",
+    min_height=560,  # 바차트까지 보이도록 하한 확보
+    max_height=720,  # 필요 이상 예약하지 않게 상한 축소
+    toolbar="yes", scrolling=False
 ):
     """
     반응형 Tableau 임베드 (iframe + aspect-ratio padding box)
@@ -80,4 +78,5 @@ def seoul_smoking_rate_2022():
             scrolling=False,
         )
         st.caption("출처: Tableau Public · Smoking rate in Seoul 2023")
+
 
