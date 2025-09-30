@@ -158,7 +158,7 @@ def shopping_compare():
             summary = st.session_state['shopping_summary']
             
             # 요약 메트릭 표시
-            col1, col2, col3, col4 = st.columns(4)
+            col1, col2, col3= st.columns(3)
             
             with col1:
                 st.metric("총 상품수", f"{summary['총_상품수']:,}개")
@@ -175,8 +175,8 @@ def shopping_compare():
                 else:
                     st.metric("최저가", "정보없음")
             
-            with col4:
-                st.metric("쇼핑몰 수", f"{summary['쇼핑몰수']:,}개")
+            # with col4:
+            #     st.metric("쇼핑몰 수", f"{summary['쇼핑몰수']:,}개")
         
         # 데이터 미리보기
         with st.expander("🔍 선택된 파일의 상품 데이터 미리보기", expanded=False):
@@ -316,4 +316,5 @@ def shopping_compare():
     
     else:
         # 데이터가 없을 때 안내 메시지
+
         st.warning("🔍 상품을 검색하거나 저장된 파일을 불러와서 가격 비교를 시작하세요!")
