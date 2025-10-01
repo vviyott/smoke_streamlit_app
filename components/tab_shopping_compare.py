@@ -246,14 +246,25 @@ def shopping_compare():
                             index=2
                         )
                         
-                        # 표시할 상위 개수
+                        # 표시할 상위 개수 (데이터 개수에 맞춰 안전하게 계산)
+                        n_malls = int(len(mall_stats))
+                        if n_malls <= 0:
+                            st.warning("📊 집계된 쇼핑몰이 없습니다. (가격 정보가 부족하거나 필터링 결과가 비었습니다)")
+                            return  # 아래 그리기 로직은 생략
+                        
+                        max_n = min(20, n_malls)           # 최대 20, 데이터보다 크지 않게
+                        min_n = 1                          # 0도 허용하려면 0으로 변경
+                        default_n = min(10, max_n)         # 기본값은 10, 단 범위를 넘지 않게
+                        
                         top_n = st.slider(
                             "표시할 쇼핑몰 수",
-                            min_value=5,
-                            max_value=min(20, len(mall_stats)),
-                            value=min(10, len(mall_stats))
+                            min_value=int(min_n),
+                            max_value=int(max_n),
+                            value=int(default_n),
+                            step=1,
+                            help="상위 몇 개 쇼핑몰까지 막대그래프에 표시할지 선택하세요."
                         )
-                    
+
                     with col1:
                         # 데이터 정렬
                         if sort_order == "높은순":
@@ -318,3 +329,4 @@ def shopping_compare():
         # 데이터가 없을 때 안내 메시지
 
         st.warning("🔍 상품을 검색하거나 저장된 파일을 불러와서 가격 비교를 시작하세요!")
+
